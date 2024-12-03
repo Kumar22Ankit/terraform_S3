@@ -2,19 +2,19 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-# S3 Bucket Object (Using the existing Lambda ARN)
+# S3 Bucket Object 
 resource "aws_s3_object" "example" {
   bucket = "terraforms3bucket-dec3"
   key    = "example.txt"
   source = "example.txt"
 
-  # Directly using the Lambda ARN as metadata
+  
   metadata = {
     lambda_arn = "arn:aws:lambda:ap-south-1:975050186482:function:terraform-state-handler"
   }
 }
 
-# DynamoDB Table for State Locking
+# DynamoDB Table 
 resource "aws_dynamodb_table" "terraform_lock" {
   name         = "terraform"
   billing_mode = "PAY_PER_REQUEST"
@@ -76,12 +76,12 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
-# Reference the existing Lambda function (no need to create it)
+
 data "aws_lambda_function" "existing_lambda" {
   function_name = "terraform-state-handler"
 }
 
-# Backend configuration for S3 with DynamoDB Lock
+
 terraform {
   backend "s3" {
     bucket         = "terraforms3bucket-dec3"
@@ -92,13 +92,12 @@ terraform {
   }
 }
 
-# Output the DynamoDB Table Name for State Locking
+
 output "dynamodb_table_name" {
   description = "Name of the DynamoDB table for state locking"
   value       = aws_dynamodb_table.terraform_lock.name
 }
 
-# Output the Lambda Function Name
 output "lambda_function_name" {
   description = "Name of the deployed Lambda function"
   value       = data.aws_lambda_function.existing_lambda.function_name
