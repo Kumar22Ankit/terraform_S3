@@ -13,7 +13,7 @@ This project demonstrates how to use **Terraform** to manage infrastructure on A
 
 ## Infrastructure Components
 
-- **S3 Bucket**: Stores the Terraform state file and Lambda ZIP file.
+- **S3 Bucket**: Stores the Terraform state file .
 - **DynamoDB Table**: Used for state locking.
 - **Lambda Function**: Manages state locking and performs operations on the S3 bucket.
 - **IAM Role and Policy**: Assigned to Lambda for permissions.
