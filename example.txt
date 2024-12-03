@@ -1,0 +1,4 @@
+### Project Report Status ###
+done with the configuration and terraform init and plan and going to do apply !!
+### done ###
+
